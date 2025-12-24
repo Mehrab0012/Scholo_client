@@ -1,5 +1,6 @@
 
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -15,19 +16,19 @@ const Navbar = () => {
   }, []);
 
   return (
-    <header 
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        scrolled 
-          ? 'bg-white/80 backdrop-blur-lg border-b border-slate-200/60 shadow-sm' 
-          : 'bg-transparent'
-      }`}
+    <header
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled
+        ? 'bg-white/80 backdrop-blur-lg border-b border-slate-200/60 shadow-sm'
+        : 'bg-transparent'
+        }`}
     >
       <div className="max-w-7xl mx-auto px-6">
         <div className="flex justify-between items-center h-20">
-          
+
           {/* Logo Section */}
           <div className="flex items-center gap-2.5 group cursor-pointer">
-            <div className="w-10 h-10 flex items-center justify-center rounded-xl bg-indigo-600 text-white shadow-lg shadow-indigo-200 group-hover:scale-105 transition-transform duration-300">
+            <div className="w-10 h-10 flex items-center justify-center rounded-xl bg-indigo-600
+             text-white shadow-lg shadow-indigo-200 group-hover:scale-105 transition-transform duration-300">
               <svg viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6">
                 <path d="M12 3L1 9L12 15L21 10.09V17H23V9M5 13.18V17.18L12 21L19 17.18V13.18L12 17L5 13.18Z" />
               </svg>
@@ -36,34 +37,38 @@ const Navbar = () => {
               Scholar<span className="text-indigo-600">Stream</span>
             </span>
           </div>
-          
+
           {/* Desktop Navigation */}
           <nav className="hidden lg:flex items-center gap-10">
-            {['Home', 'Browse', 'Opportunities', 'About'].map((item) => (
-              <a 
+            {['Browse', 'Opportunities', 'About'].map((item) => (
+              <Link 
+                to={`/${item.toLowerCase()}`}
                 key={item}
-                href={`#${item.toLowerCase()}`} 
                 className="text-[15px] font-medium text-slate-500 hover:text-indigo-600 transition-all relative group"
               >
                 {item}
                 <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-indigo-600 transition-all duration-300 group-hover:w-full"></span>
-              </a>
+              </Link>
             ))}
           </nav>
 
           {/* Action Buttons */}
           <div className="hidden lg:flex items-center gap-4">
-            <button className="text-sm font-semibold text-slate-600 hover:text-indigo-600 px-4 py-2 transition-colors">
-              Log in
-            </button>
-            <button className="bg-slate-900 hover:bg-indigo-600 text-white px-6 py-2.5 rounded-full text-sm font-semibold shadow-md shadow-slate-200 transition-all active:scale-95">
-              Get Started
-            </button>
+            <Link to={'/authentication/logIn'}>
+              <button className="text-sm font-semibold text-slate-600 hover:text-indigo-600 px-4 py-2 transition-colors">
+                Log in
+              </button>
+            </Link>
+            <Link to={'/authentication/register'}>
+              <button className="bg-slate-900 hover:bg-indigo-600 text-white px-6 py-2.5 rounded-full text-sm font-semibold shadow-md shadow-slate-200 transition-all active:scale-95">
+                Get Started
+              </button>
+            </Link>
           </div>
 
           {/* Mobile Menu Toggle */}
-          <button 
-            onClick={() => setIsOpen(!isOpen)} 
+          <button
+            onClick={() => setIsOpen(!isOpen)}
             className="lg:hidden p-2 text-slate-600 hover:bg-slate-100 rounded-lg transition-colors"
           >
             {isOpen ? (
@@ -87,9 +92,11 @@ const Navbar = () => {
         <a href="#" className="text-lg font-medium text-slate-800 py-2 border-b border-slate-50">Home</a>
         <a href="#" className="text-lg font-medium text-slate-500 py-2 border-b border-slate-50">Browse</a>
         <a href="#" className="text-lg font-medium text-slate-500 py-2 border-b border-slate-50">Opportunities</a>
-        <button className="w-full bg-indigo-600 text-white py-4 rounded-xl font-bold mt-4 shadow-lg shadow-indigo-100">
-          Sign In
-        </button>
+        <Link to={'/authentication/signIn'}>
+          <button className="w-full bg-indigo-600 text-white py-4 rounded-xl font-bold mt-4 shadow-lg shadow-indigo-100">
+            Sign In
+          </button>
+        </Link>
       </div>
     </header>
   );
