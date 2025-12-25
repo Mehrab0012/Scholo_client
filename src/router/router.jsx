@@ -5,8 +5,8 @@ import Students from "../components/Students/Students.jsx";
 import AuthLayout from "../layouts/AuthLayout.jsx";
 import Login from "../components/Login/Login.jsx";
 import Register from "../components/Register/Register.jsx";
-import AllScholerships from "../pages/AllScholerships.jsx";
 import About from "../pages/About.jsx";
+import BrowseScholarships from "../layouts/BrowseScholarships.jsx";
 
 const router = createBrowserRouter([
     {
@@ -37,7 +37,7 @@ const router = createBrowserRouter([
             },
             {
                 path: "/browse",
-                Component: AllScholerships,
+                Component: BrowseScholarships,
             },
             {
                 path: "/about",

@@ -33,15 +33,17 @@ const Navbar = () => {
                 <path d="M12 3L1 9L12 15L21 10.09V17H23V9M5 13.18V17.18L12 21L19 17.18V13.18L12 17L5 13.18Z" />
               </svg>
             </div>
-            <span className="text-xl font-bold tracking-tight text-slate-800">
-              Scholar<span className="text-indigo-600">Stream</span>
-            </span>
+            <Link to={'/'}>
+              <span className="text-xl font-bold tracking-tight text-slate-800">
+                Scholar<span className="text-indigo-600">Stream</span>
+              </span>
+            </Link>
           </div>
 
           {/* Desktop Navigation */}
           <nav className="hidden lg:flex items-center gap-10">
             {['Browse', 'Opportunities', 'About'].map((item) => (
-              <Link 
+              <Link
                 to={`/${item.toLowerCase()}`}
                 key={item}
                 className="text-[15px] font-medium text-slate-500 hover:text-indigo-600 transition-all relative group"
@@ -55,12 +57,12 @@ const Navbar = () => {
           {/* Action Buttons */}
           <div className="hidden lg:flex items-center gap-4">
             <Link to={'/authentication/logIn'}>
-              <button className="text-sm font-semibold text-slate-600 hover:text-indigo-600 px-4 py-2 transition-colors">
+              <button className=" cursor-pointer px-6 py-2.5 rounded-full text-sm font-semibold shadow-md shadow-blue-200 transition-all active:scale-95">
                 Log in
               </button>
             </Link>
             <Link to={'/authentication/register'}>
-              <button className="bg-slate-900 hover:bg-indigo-600 text-white px-6 py-2.5 rounded-full text-sm font-semibold shadow-md shadow-slate-200 transition-all active:scale-95">
+              <button className="bg-slate-900 cursor-pointer hover:bg-indigo-600 text-white px-6 py-2.5 rounded-full text-sm font-semibold shadow-md shadow-blue-200 transition-all active:scale-95">
                 Get Started
               </button>
             </Link>
@@ -89,14 +91,36 @@ const Navbar = () => {
         absolute top-full left-0 w-full bg-white border-b border-slate-100 p-6 flex flex-col gap-4 transition-all duration-300 origin-top lg:hidden
         ${isOpen ? 'opacity-100 scale-y-100' : 'opacity-0 scale-y-0 pointer-events-none'}
       `}>
-        <a href="#" className="text-lg font-medium text-slate-800 py-2 border-b border-slate-50">Home</a>
-        <a href="#" className="text-lg font-medium text-slate-500 py-2 border-b border-slate-50">Browse</a>
-        <a href="#" className="text-lg font-medium text-slate-500 py-2 border-b border-slate-50">Opportunities</a>
-        <Link to={'/authentication/signIn'}>
-          <button className="w-full bg-indigo-600 text-white py-4 rounded-xl font-bold mt-4 shadow-lg shadow-indigo-100">
-            Sign In
-          </button>
-        </Link>
+        <nav className="lg:hidden flex flex-col justify-start  gap-10">
+          {['Browse', 'Opportunities', 'About'].map((item) => (
+            <Link
+              to={`/${item.toLowerCase()}`}
+              key={item}
+              className="text-lg font-medium  text-slate-500 hover:text-indigo-600 transition-all relative group"
+            >
+              {item}
+            </Link>
+          ))}
+        </nav>
+
+        <div className='w-full flex mt-4 gap-2 px-1 md:px-20'>
+          <span className='w-full'>
+            <Link to={'/authentication/signIn'}>
+              <button className="w-full bg-indigo-600 text-white py-4 rounded-xl font-bold  shadow-lg shadow-indigo-100">
+                Sign In
+              </button>
+
+            </Link>
+          </span>
+          <span className='w-full'>
+            <Link to={'/authentication/register'}>
+              <button className="w-full bg-indigo-600 text-white py-4 rounded-xl font-bold  shadow-lg shadow-indigo-100">
+                Register
+              </button>
+
+            </Link>
+          </span>
+        </div>
       </div>
     </header>
   );

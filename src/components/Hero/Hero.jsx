@@ -2,7 +2,7 @@ import React from 'react';
 
 const Hero = () => {
     return (
-        <section className="pt-32 pb-16 ">
+        <section className="pt-22 md:pt-32 pb-3 md:pb-16 ">
             <div className="max-w-6xl mx-auto">
                 <div className="relative overflow-hidden rounded-3xl bg-slate-900 px-6 py-20 md:px-12 md:py-32 text-center shadow-2xl">
                     <div className="absolute inset-0 opacity-40 bg-[url('https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&q=80')] bg-cover bg-center" />
