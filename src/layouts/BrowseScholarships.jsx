@@ -7,11 +7,14 @@ import { MOCK_SCHOLARSHIPS } from '../components/BrowseScholarshipComponents/Sit
 import { ScholarshipCard } from '../components/BrowseScholarshipComponents/ScholarshipCard';
 import { Pagination } from '../components/BrowseScholarshipComponents/Pagination';
 import { IoCheckmarkDoneOutline } from 'react-icons/io5';
+import { Outlet } from 'react-router';
 
 
 const BrowseScholarships = () => {
   return (
+    
     <div className="max-w-7xl mx-auto mt-16 lg:mt-32 w-full px-4 lg:px-8 py-8 flex flex-col lg:flex-row gap-8">
+      
       {/* Left Sidebar */}
       <aside className="w-full lg:w-80 shrink-0 flex flex-col gap-6">
         <Search />
@@ -42,6 +45,7 @@ const BrowseScholarships = () => {
         <Pagination />
       </main>
     </div>
+    
   );
 };
 export default BrowseScholarships;

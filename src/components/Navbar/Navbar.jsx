@@ -5,6 +5,7 @@ import { Link } from 'react-router';
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const navItems = ['Browse Scholarships', 'Universities', 'About'];
 
   // Add shadow on scroll for a professional feel
   useEffect(() => {
@@ -42,7 +43,15 @@ const Navbar = () => {
 
           {/* Desktop Navigation */}
           <nav className="hidden lg:flex items-center gap-10">
-            {['Browse', 'Opportunities', 'About'].map((item) => (
+            {navItems.map((item) => (
+              item === "Browse Scholarships" ? <Link
+                to={`/browse-scholarships`}
+                key={item}
+                className="text-[15px] font-medium text-slate-500 hover:text-indigo-600 transition-all relative group"
+              >
+                {item}
+                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-indigo-600 transition-all duration-300 group-hover:w-full"></span>
+              </Link> :
               <Link
                 to={`/${item.toLowerCase()}`}
                 key={item}
@@ -92,7 +101,7 @@ const Navbar = () => {
         ${isOpen ? 'opacity-100 scale-y-100' : 'opacity-0 scale-y-0 pointer-events-none'}
       `}>
         <nav className="lg:hidden flex flex-col justify-start  gap-10">
-          {['Browse', 'Opportunities', 'About'].map((item) => (
+          {navItems.map((item) => (
             <Link
               to={`/${item.toLowerCase()}`}
               key={item}

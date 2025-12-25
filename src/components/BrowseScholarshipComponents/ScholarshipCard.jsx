@@ -1,5 +1,6 @@
 import React from 'react';
 import { FaRegArrowAltCircleRight } from 'react-icons/fa';
+import { Link } from 'react-router';
 
 export const ScholarshipCard = ({ scholarship }) => {
     return (
@@ -66,11 +67,13 @@ export const ScholarshipCard = ({ scholarship }) => {
                     {scholarship.amount}
                 </span>
 
-                <button className="w-full md:w-auto whitespace-nowrap cursor-pointer bg-[#137fec] hover:bg-[#0b5ed7] text-white text-sm font-semibold py-2.5 px-5 rounded-lg transition-colors flex items-center justify-center gap-2 shadow-sm">
-                    View Details
-                    <FaRegArrowAltCircleRight className='text-xl' />
+                <Link to={'/scholership-details'}>
+                    <button className="w-full md:w-auto whitespace-nowrap cursor-pointer bg-[#137fec] hover:bg-[#0b5ed7] text-white text-sm font-semibold py-2.5 px-5 rounded-lg transition-colors flex items-center justify-center gap-2 shadow-sm">
+                        View Details
+                        <FaRegArrowAltCircleRight className='text-xl' />
 
-                </button>
+                    </button>
+                </Link>
             </div>
         </div>
     );

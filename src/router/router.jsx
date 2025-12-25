@@ -1,4 +1,4 @@
-import {createBrowserRouter} from "react-router";
+import { createBrowserRouter } from "react-router";
 import RootLayout from "../layouts/RootLayout.jsx";
 import HomePage from "../pages/HomePage.jsx";
 import Students from "../components/Students/Students.jsx";
@@ -7,6 +7,8 @@ import Login from "../components/Login/Login.jsx";
 import Register from "../components/Register/Register.jsx";
 import About from "../pages/About.jsx";
 import BrowseScholarships from "../layouts/BrowseScholarships.jsx";
+import Universities from "../pages/Universities.jsx";
+import ScholershipDetails from "../pages/ScholershipDetails.jsx";
 
 const router = createBrowserRouter([
     {
@@ -24,7 +26,7 @@ const router = createBrowserRouter([
             {
                 path: "authentication",
                 Component: AuthLayout,
-                children:[
+                children: [
                     {
                         path: 'logIn',
                         Component: Login,
@@ -36,13 +38,26 @@ const router = createBrowserRouter([
                 ]
             },
             {
-                path: "/browse",
+                path: "/browse-scholarships",
                 Component: BrowseScholarships,
+                children: [
+
+
+                ]
             },
             {
                 path: "/about",
                 Component: About,
+            },
+            {
+                path: "/universities",
+                Component: Universities,
+            },
+            {
+                path: 'scholership-details',
+                Component: ScholershipDetails,
             }
+
         ]
     }
 ]);
