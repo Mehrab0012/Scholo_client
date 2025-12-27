@@ -7,6 +7,8 @@ const Login = () => {
 
     const [show, setShow] = useState(false);
 
+
+
     return (
         <div className="space-y-6 animate-in fade-in slide-in-from-right-4 duration-300 mt-10">
 
@@ -16,9 +18,12 @@ const Login = () => {
                     <div className="relative">
 
                         <input
-                            className="w-full h-12 pl-5 pr-4 rounded-xl border border-[#dbe0e6] bg-white text-[#111418] placeholder:text-secondary/50 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all text-sm"
+                            className="w-full h-12 pl-5 pr-11 rounded-xl border border-[#dbe0e6] bg-white 
+                            text-[#111418] placeholder:text-secondary/50 text-sm transition-all
+                                focus:outline-none focus:ring-2 focus:ring-blue-300"
                             id="email"
                             placeholder="name@university.edu"
+
                             type="email"
                         />
                     </div>
@@ -30,18 +35,26 @@ const Login = () => {
                         <label className="text-sm font-semibold text-[#111418]" htmlFor="email">Password</label>
 
                         <div className='relative'>
-                            <input
-                            className="w-full h-12 pl-5 pr-11 rounded-xl border  border-[#dbe0e6] bg-white text-[#111418] placeholder:text-secondary/50 
-                            focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all text-sm"
+                            {/* <input
+                            className="w-full h-12 pl-5 pr-11  rounded-xl border  border-[#dbe0e6] bg-white text-[#111418] placeholder:text-secondary/50 
+                            focus:outline-none focus:ring-2 focus:ring-red-400 focus:border-primary transition-all text-sm"
                             id="password"
                             placeholder="••••••••"
                             type={`${show ? 'text' : 'password'}`}
-                        />
-                        <button className="absolute inset-y-0 right-0 pr-3 flex items-center text-secondary/60 hover:text-secondary" type="button">
-                            <IoMdEye onClick={() => setShow(show => !show)} className={`${show ? 'flex' : 'hidden'} text-2xl cursor-pointer`} />
-                            <IoMdEyeOff onClick={() => setShow(show => !show)} className={`${show ? 'hidden' : 'flex'} text-2xl cursor-pointer`} />
+                        /> */}
+                            <input
+                                className="w-full h-12 pl-5 pr-11 rounded-xl border border-[#dbe0e6] bg-white 
+  text-[#111418] placeholder:text-secondary/50 text-sm transition-all
+  focus:outline-none focus:ring-2 focus:ring-blue-300"
+                                id="password"
+                                placeholder="••••••••"
+                                type={show ? "text" : "password"}
+                            />
+                            <button className="absolute inset-y-0 right-0 pr-3 flex items-center text-secondary/60 hover:text-secondary" type="button">
+                                <IoMdEye onClick={() => setShow(show => !show)} className={`${show ? 'flex' : 'hidden'} text-2xl cursor-pointer`} />
+                                <IoMdEyeOff onClick={() => setShow(show => !show)} className={`${show ? 'hidden' : 'flex'} text-2xl cursor-pointer`} />
 
-                        </button>
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -58,7 +71,7 @@ const Login = () => {
             <div className="text-center pt-2">
                 <p className="text-sm text-secondary">
                     Don't have an account?
-                    <Link to={'/authentication/register'}><button  className="ml-1 font-bold text-blue-800 cursor-pointer hover:underline">Register</button></Link>
+                    <Link to={'/authentication/register'}><button className="ml-1 font-bold text-blue-800 cursor-pointer hover:underline">Register</button></Link>
                 </p>
             </div>
         </div>

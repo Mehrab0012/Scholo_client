@@ -1,12 +1,52 @@
 
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { IoIosCheckmarkCircleOutline } from 'react-icons/io';
-import { Link, Outlet, useLocation } from 'react-router';
+import { Link, Outlet, useLocation, useNavigate } from 'react-router';
+import { AuthContext } from '../context/AuthContext';
+import { toast, ToastContainer } from 'react-toastify';
 
 const AuthLayout = () => {
+    const { signInWithGoogle } = useContext(AuthContext);
+
+    const location = useLocation();
+    const navigate = useNavigate();
+    const from = location.state?.from?.pathname || "/";
+
+    const handleGoogleSignIn = () => {
+        signInWithGoogle()
+            .then(result => {
+
+                toast.success("Login successful 🎉", {
+                    autoClose: 3000,
+                    pauseOnHover: true,
+                    draggable: true,
+                });
+                navigate(from, { replace: true });
+            })
+            .catch(error => {
+                if (error.code === "auth/popup-closed-by-user") {
+                    toast.error("Sign in popup closed");
+                }
+                else if (error.code === "auth/cancelled-popup-request") {
+                    toast.error("Popup request cancelled");
+                }
+                else if (error.code === "auth/account-exists-with-different-credential") {
+                    toast.error("Account already exists with different sign-in method");
+                }
+                else if (error.code === "auth/network-request-failed") {
+                    toast.error("Network error. Please check your internet");
+                }
+                else if (error.code === "auth/too-many-requests") {
+                    toast.error("Too many attempts. Try again later");
+                }
+                else {
+                    toast.error("Something went wrong. Please try again");
+                }
+            })
+    }
 
     const [active, setActive] = useState("logIn");
-    const location = useLocation();
+
 
     useEffect(() => {
         if (location.pathname.includes("logIn")) {
@@ -23,6 +63,7 @@ const AuthLayout = () => {
     return (
         <div className="w-full max-w-[1100px] m-auto mt-40 mb-40 bg-white rounded-2xl shadow-xl max-lg:px-3 overflow-hidden flex flex-col md:flex-row min-h-[680px]">
             {/* Left Branding Side */}
+            <ToastContainer />
             <div
                 className="hidden md:flex md:w-5/12 lg:w-1/2 px-14 py-30 relative flex-col gap-20   text-white bg-cover bg-center overflow-hidden"
                 style={{
@@ -81,7 +122,7 @@ const AuthLayout = () => {
                             to="logIn"
                             onClick={() => setActive("logIn")}
                             className={`flex-1 z-10 py-2 px-4 text-sm font-semibold text-center transition-colors duration-300
-                            ${active === "login" ? "text-primary" : "text-secondary"}`}
+                            ${active === "logIn" ? "text-blue-400" : "text-black"}`}
                         >
                             Log In
                         </Link>
@@ -91,7 +132,7 @@ const AuthLayout = () => {
                             to="register"
                             onClick={() => setActive("register")}
                             className={`flex-1 z-10 py-2 px-4 text-sm font-semibold text-center transition-colors duration-300
-                            ${active === "register" ? "text-primary" : "text-secondary"}`}
+                            ${active === "register" ? "text-blue-400" : "text-black"}`}
                         >
                             Register
                         </Link>
@@ -108,7 +149,7 @@ const AuthLayout = () => {
                     </div>
 
                     <div className="flex flex-col sm:flex-row gap-3 mt-5">
-                        <button className="flex-1 py-3 flex items-center cursor-pointer justify-center gap-3 rounded-xl border border-[#dbe0e6] hover:bg-gray-50 transition-all bg-white">
+                        <button onClick={handleGoogleSignIn} className="flex-1 py-3 flex items-center cursor-pointer justify-center gap-3 rounded-xl border border-[#dbe0e6] hover:bg-gray-50 transition-all bg-white">
                             <img src="https://www.svgrepo.com/show/475656/google-color.svg" className="w-5 h-5" alt="Google" />
                             <span className="text-sm font-semibold text-[#111418]">Google</span>
                         </button>

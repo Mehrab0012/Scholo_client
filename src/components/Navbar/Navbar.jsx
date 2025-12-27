@@ -1,11 +1,17 @@
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { Link } from 'react-router';
+import { AuthContext } from '../../context/AuthContext';
+import Loader from '../Loader/Loader';
+import ProfileMenu from '../ProfileMenu/ProfileMenu';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const navItems = ['Browse Scholarships', 'Universities', 'About'];
+  const { user, loading } = useContext(AuthContext);
+
+
 
   // Add shadow on scroll for a professional feel
   useEffect(() => {
@@ -24,7 +30,7 @@ const Navbar = () => {
         }`}
     >
       <div className="max-w-7xl mx-auto px-6">
-        <div className="flex justify-between items-center h-20">
+        <div className="flex justify-between lg:grid lg:grid-cols-3 items-center py-5">
 
           {/* Logo Section */}
           <div className="flex items-center gap-2.5 group cursor-pointer">
@@ -52,32 +58,91 @@ const Navbar = () => {
                 {item}
                 <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-indigo-600 transition-all duration-300 group-hover:w-full"></span>
               </Link> :
-              <Link
-                to={`/${item.toLowerCase()}`}
-                key={item}
-                className="text-[15px] font-medium text-slate-500 hover:text-indigo-600 transition-all relative group"
-              >
-                {item}
-                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-indigo-600 transition-all duration-300 group-hover:w-full"></span>
-              </Link>
+                <Link
+                  to={`/${item.toLowerCase()}`}
+                  key={item}
+                  className="text-[15px] font-medium text-slate-500 hover:text-indigo-600 transition-all relative group"
+                >
+                  {item}
+                  <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-indigo-600 transition-all duration-300 group-hover:w-full"></span>
+                </Link>
             ))}
           </nav>
 
-          {/* Action Buttons */}
-          <div className="hidden lg:flex items-center gap-4">
-            <Link to={'/authentication/logIn'}>
-              <button className=" cursor-pointer px-6 py-2.5 rounded-full text-sm font-semibold shadow-md shadow-blue-200 transition-all active:scale-95">
-                Log in
-              </button>
-            </Link>
-            <Link to={'/authentication/register'}>
-              <button className="bg-slate-900 cursor-pointer hover:bg-indigo-600 text-white px-6 py-2.5 rounded-full text-sm font-semibold shadow-md shadow-blue-200 transition-all active:scale-95">
-                Get Started
-              </button>
-            </Link>
+          <div className='hidden lg:flex lg:w-full justify-end px-5 '>
+            {/* Action Buttons */}
+            {
+              loading ? <Loader></Loader>
+                :
+
+                <div className=''>
+                  {
+                    user ?
+                      <div className='flex justify-end  w-full'>
+
+                        <ProfileMenu user={user} />
+                      </div>
+
+                      :
+
+                      <div className="hidden lg:flex items-center gap-4">
+                        <Link to={'/authentication/logIn'}>
+                          <button className=" cursor-pointer px-6 py-2.5 rounded-full text-sm font-semibold shadow-md shadow-blue-200 transition-all active:scale-95">
+                            Log in
+                          </button>
+                        </Link>
+                        <Link to={'/authentication/register'}>
+                          <button className="bg-slate-900 cursor-pointer hover:bg-indigo-600 text-white px-6 py-2.5 rounded-full text-sm font-semibold shadow-md shadow-blue-200 transition-all active:scale-95">
+                            Get Started
+                          </button>
+                        </Link>
+                      </div>
+                  }
+                </div>
+
+
+
+            }
           </div>
 
           {/* Mobile Menu Toggle */}
+          <div className='flex gap-3'>
+
+                       <div className=' lg:hidden'>
+            {/* Action Buttons */}
+            {
+              loading ? <Loader></Loader>
+                :
+
+                <div>
+                  {
+                    user ?
+                      <div>
+                        <ProfileMenu user={user} />
+                      </div>
+
+                      :
+
+                      <div className="hidden lg:flex items-center gap-4">
+                        <Link to={'/authentication/logIn'}>
+                          <button className=" cursor-pointer px-6 py-2.5 rounded-full text-sm font-semibold shadow-md shadow-blue-200 transition-all active:scale-95">
+                            Log in
+                          </button>
+                        </Link>
+                        <Link to={'/authentication/register'}>
+                          <button className="bg-slate-900 cursor-pointer hover:bg-indigo-600 text-white px-6 py-2.5 rounded-full text-sm font-semibold shadow-md shadow-blue-200 transition-all active:scale-95">
+                            Get Started
+                          </button>
+                        </Link>
+                      </div>
+                  }
+                </div>
+
+
+
+            }
+          </div>
+
           <button
             onClick={() => setIsOpen(!isOpen)}
             className="lg:hidden p-2 text-slate-600 hover:bg-slate-100 rounded-lg transition-colors"
@@ -92,7 +157,11 @@ const Navbar = () => {
               </svg>
             )}
           </button>
+          </div>
+
+
         </div>
+        
       </div>
 
       {/* Mobile Menu Overlay */}

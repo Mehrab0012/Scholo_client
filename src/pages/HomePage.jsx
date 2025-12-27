@@ -3,11 +3,14 @@ import Hero from '../components/Hero/Hero';
 import TopScholarships from '../components/TopScholarships/TopScholarships';
 import SuccessStories from '../components/SuccessStories/SuccessStories';
 import FAQ from '../components/FAQ/FAQ';
+import { ToastContainer } from 'react-toastify';
 
 const HomePage = () => {
+
     return (
         <div>
             <div>
+                <ToastContainer></ToastContainer>
                 <Hero></Hero>
                 <TopScholarships></TopScholarships>
                 <SuccessStories></SuccessStories>

@@ -9,6 +9,7 @@ import About from "../pages/About.jsx";
 import BrowseScholarships from "../layouts/BrowseScholarships.jsx";
 import Universities from "../pages/Universities.jsx";
 import ScholershipDetails from "../pages/ScholershipDetails.jsx";
+import PrivateRoute from "../provider/PrivateRoute.jsx";
 
 const router = createBrowserRouter([
     {
@@ -39,7 +40,7 @@ const router = createBrowserRouter([
             },
             {
                 path: "/browse-scholarships",
-                Component: BrowseScholarships,
+                element: <PrivateRoute><BrowseScholarships></BrowseScholarships></PrivateRoute>,
                 children: [
 
 

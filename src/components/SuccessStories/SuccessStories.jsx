@@ -76,10 +76,10 @@ const SuccessStories = () => {
           spaceBetween={24}
           loop
           autoplay={{
-            delay: 0,
+            delay:30,
             disableOnInteraction: false,
           }}
-          speed={4500}
+          speed={4000}
           breakpoints={{
             0: { slidesPerView: 1 },
             640: { slidesPerView: 2 },

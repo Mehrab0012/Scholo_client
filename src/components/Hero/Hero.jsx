@@ -31,7 +31,8 @@ const Hero = () => {
                             bg-primary hover:bg-primary-dark 
                             px-8 py-3 rounded-xl font-bold 
                             transition-all duration-200 ease-out
-                            transform active:scale-95 hover:scale-[1.02]
+                            transform active:scale-95 
+                            hover:text-blue-600
                             shadow-lg hover:shadow-primary/30">                                Search
                             </button>
                         </div>
