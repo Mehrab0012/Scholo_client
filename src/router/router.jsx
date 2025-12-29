@@ -10,6 +10,8 @@ import BrowseScholarships from "../layouts/BrowseScholarships.jsx";
 import Universities from "../pages/Universities.jsx";
 import ScholershipDetails from "../pages/ScholershipDetails.jsx";
 import PrivateRoute from "../provider/PrivateRoute.jsx";
+import DashboardLayout from "../layouts/DashboardLayout.jsx";
+import AddScholarship from "../pages/AddScholarship.jsx";
 
 const router = createBrowserRouter([
     {
@@ -55,8 +57,22 @@ const router = createBrowserRouter([
                 Component: Universities,
             },
             {
-                path: 'scholership-details',
-                Component: ScholershipDetails,
+                path: 'scholership-details/:id',
+                element: <PrivateRoute>
+                    <ScholershipDetails></ScholershipDetails>
+                </PrivateRoute>
+            },
+            {
+                path: 'dashboard',
+                element: <PrivateRoute>
+                    <DashboardLayout></DashboardLayout>
+                </PrivateRoute>
+            },
+            {
+                path: 'add-scholarship',
+                element: <PrivateRoute>
+                    <AddScholarship></AddScholarship>
+                </PrivateRoute>
             }
 
         ]

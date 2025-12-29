@@ -4,7 +4,7 @@ import { FaArrowRight, FaCalendarAlt, FaShare } from 'react-icons/fa';
 import { GrFavorite } from 'react-icons/gr';
 import { MdOutlinePayments } from 'react-icons/md';
 
-const ApplyScholership = () => {
+const ApplyScholership = ({amount, fee, deadline,frequency}) => {
     return (
         <div className="flex flex-col gap-4">
             <div className="bg-white rounded-2xl border border-slate-100 p-8 shadow-xl shadow-slate-200/50">
@@ -13,8 +13,8 @@ const ApplyScholership = () => {
                     <div>
                         <p className="text-xs font-bold text-slate-400 uppercase tracking-widest mb-2">Award Amount</p>
                         <div className="flex items-baseline gap-2">
-                            <span className="text-5xl font-extrabold text-slate-900">$10,000</span>
-                            <span className="text-slate-400 font-bold">/ year</span>
+                            <span className="text-5xl font-extrabold text-slate-900">${amount}</span>
+                            <span className="text-slate-400 font-bold">/ {frequency}</span>
                         </div>
                     </div>
 
@@ -27,7 +27,7 @@ const ApplyScholership = () => {
                             iconBg="bg-rose-50"
                             iconColor="text-rose-500"
                             label="Application Deadline"
-                            value="Oct 15, 2023"
+                            value={deadline}
                             subValue="21 days remaining"
                             isUrgent={true}
                         />
@@ -36,7 +36,7 @@ const ApplyScholership = () => {
                             iconBg="bg-[#137fec]/10"
                             iconColor="text-[#137fec]"
                             label="Application Fee"
-                            value="$25.00"
+                            value={`$ ${fee}`}
                         />
                     </div>
 

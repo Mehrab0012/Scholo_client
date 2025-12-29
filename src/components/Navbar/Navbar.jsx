@@ -69,99 +69,101 @@ const Navbar = () => {
             ))}
           </nav>
 
-          <div className='hidden lg:flex lg:w-full justify-end px-5 '>
+          <div className='hidden lg:flex  justify-end px-3 rounded-2xl '>
             {/* Action Buttons */}
-            {
-              loading ? <Loader></Loader>
-                :
+            <div className=''>
+              {
+                loading ? <Loader></Loader>
+                  :
 
-                <div className=''>
-                  {
-                    user ?
-                      <div className='flex justify-end  w-full'>
+                  <div className=''>
+                    {
+                      user ?
+                        <div className='flex justify-end  w-full'>
 
-                        <ProfileMenu user={user} />
-                      </div>
+                          <ProfileMenu user={user} />
+                        </div>
 
-                      :
+                        :
 
-                      <div className="hidden lg:flex items-center gap-4">
-                        <Link to={'/authentication/logIn'}>
-                          <button className=" cursor-pointer px-6 py-2.5 rounded-full text-sm font-semibold shadow-md shadow-blue-200 transition-all active:scale-95">
-                            Log in
-                          </button>
-                        </Link>
-                        <Link to={'/authentication/register'}>
-                          <button className="bg-slate-900 cursor-pointer hover:bg-indigo-600 text-white px-6 py-2.5 rounded-full text-sm font-semibold shadow-md shadow-blue-200 transition-all active:scale-95">
-                            Get Started
-                          </button>
-                        </Link>
-                      </div>
-                  }
-                </div>
+                        <div className="hidden lg:flex items-center gap-4">
+                          <Link to={'/authentication/logIn'}>
+                            <button className=" cursor-pointer px-6 py-2.5 rounded-full text-sm font-semibold shadow-md shadow-blue-200 transition-all active:scale-95">
+                              Log in
+                            </button>
+                          </Link>
+                          <Link to={'/authentication/register'}>
+                            <button className="bg-slate-900 cursor-pointer hover:bg-indigo-600 text-white px-6 py-2.5 rounded-full text-sm font-semibold shadow-md shadow-blue-200 transition-all active:scale-95">
+                              Get Started
+                            </button>
+                          </Link>
+                        </div>
+                    }
+                  </div>
 
 
 
-            }
+              }
+            </div>
           </div>
 
           {/* Mobile Menu Toggle */}
           <div className='flex gap-3'>
 
-                       <div className=' lg:hidden'>
-            {/* Action Buttons */}
-            {
-              loading ? <Loader></Loader>
-                :
+            <div className=' lg:hidden'>
+              {/* Action Buttons */}
+              {
+                loading ? <Loader></Loader>
+                  :
 
-                <div>
-                  {
-                    user ?
-                      <div>
-                        <ProfileMenu user={user} />
-                      </div>
+                  <div>
+                    {
+                      user ?
+                        <div>
+                          <ProfileMenu user={user} />
+                        </div>
 
-                      :
+                        :
 
-                      <div className="hidden lg:flex items-center gap-4">
-                        <Link to={'/authentication/logIn'}>
-                          <button className=" cursor-pointer px-6 py-2.5 rounded-full text-sm font-semibold shadow-md shadow-blue-200 transition-all active:scale-95">
-                            Log in
-                          </button>
-                        </Link>
-                        <Link to={'/authentication/register'}>
-                          <button className="bg-slate-900 cursor-pointer hover:bg-indigo-600 text-white px-6 py-2.5 rounded-full text-sm font-semibold shadow-md shadow-blue-200 transition-all active:scale-95">
-                            Get Started
-                          </button>
-                        </Link>
-                      </div>
-                  }
-                </div>
+                        <div className="hidden lg:flex items-center gap-4">
+                          <Link to={'/authentication/logIn'}>
+                            <button className=" cursor-pointer px-6 py-2.5 rounded-full text-sm font-semibold shadow-md shadow-blue-200 transition-all active:scale-95">
+                              Log in
+                            </button>
+                          </Link>
+                          <Link to={'/authentication/register'}>
+                            <button className="bg-slate-900 cursor-pointer hover:bg-indigo-600 text-white px-6 py-2.5 rounded-full text-sm font-semibold shadow-md shadow-blue-200 transition-all active:scale-95">
+                              Get Started
+                            </button>
+                          </Link>
+                        </div>
+                    }
+                  </div>
 
 
 
-            }
-          </div>
+              }
+            </div>
 
-          <button
-            onClick={() => setIsOpen(!isOpen)}
-            className="lg:hidden p-2 text-slate-600 hover:bg-slate-100 rounded-lg transition-colors"
-          >
-            {isOpen ? (
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-6 h-6">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
-              </svg>
-            ) : (
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-6 h-6">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
-              </svg>
-            )}
-          </button>
+            <button
+              onClick={() => setIsOpen(!isOpen)}
+              className="lg:hidden p-2 text-slate-600 hover:bg-slate-100 rounded-lg transition-colors"
+            >
+              {isOpen ? (
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-6 h-6">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              ) : (
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-6 h-6">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+                </svg>
+              )}
+            </button>
           </div>
 
 
         </div>
-        
+
       </div>
 
       {/* Mobile Menu Overlay */}
@@ -181,24 +183,43 @@ const Navbar = () => {
           ))}
         </nav>
 
-        <div className='w-full flex mt-4 gap-2 px-1 md:px-20'>
-          <span className='w-full'>
-            <Link to={'/authentication/signIn'}>
-              <button className="w-full bg-indigo-600 text-white py-4 rounded-xl font-bold  shadow-lg shadow-indigo-100">
-                Sign In
-              </button>
+        <div className='flex lg:hidden max-lg:w-full justify-center px-5 '>
 
-            </Link>
-          </span>
-          <span className='w-full'>
-            <Link to={'/authentication/register'}>
-              <button className="w-full bg-indigo-600 text-white py-4 rounded-xl font-bold  shadow-lg shadow-indigo-100">
-                Register
-              </button>
+          {/* Action Buttons */}
+          {
+            loading ? <Loader></Loader>
+              :
 
-            </Link>
-          </span>
+              <div className=''>
+                {
+                  user ?
+                    <div className='flex justify-end  w-full'>
+
+                      <button className='px-18 w-full rounded-full py-3  bg-blue-700 font-bold  text-white'>Sign Out</button>
+                    </div>
+
+                    :
+
+                    <div className="hidden lg:flex items-center gap-4">
+                      <Link to={'/authentication/logIn'}>
+                        <button className=" cursor-pointer px-6 py-2.5 rounded-full text-sm font-semibold shadow-md shadow-blue-200 transition-all active:scale-95">
+                          Log in
+                        </button>
+                      </Link>
+                      <Link to={'/authentication/register'}>
+                        <button className="bg-slate-900 cursor-pointer hover:bg-indigo-600 text-white px-6 py-2.5 rounded-full text-sm font-semibold shadow-md shadow-blue-200 transition-all active:scale-95">
+                          Get Started
+                        </button>
+                      </Link>
+                    </div>
+                }
+              </div>
+
+
+
+          }
         </div>
+
       </div>
     </header>
   );

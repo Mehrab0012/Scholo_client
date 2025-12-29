@@ -1,7 +1,7 @@
 
 import React from 'react';
 
-const AboutScholership = () => {
+const AboutScholership = ({description, provider}) => {
   return (
     <div className="bg-white rounded-2xl border border-slate-100 p-8 shadow-sm">
       <div className="flex flex-col md:flex-row gap-8 items-start">
@@ -13,11 +13,9 @@ const AboutScholership = () => {
           />
         </div>
         <div className="flex-1">
-          <h3 className="text-xl font-extrabold text-slate-900">About Stanford University</h3>
+          <h3 className="text-xl font-extrabold text-slate-900">{`About ${provider}`}</h3>
           <p className="text-slate-500 font-medium leading-relaxed mt-2 text-sm">
-            Stanford University is a private research university in Stanford, California. It is one of the world's
-            leading research and teaching institutions, dedicated to finding solutions to big challenges and to
-            preparing students for leadership in a complex world.
+            {description}
           </p>
 
         </div>

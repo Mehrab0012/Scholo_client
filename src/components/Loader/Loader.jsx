@@ -1,10 +1,13 @@
-import React from 'react';
+import React from "react";
 
 const Loader = () => {
   return (
-
-    <div className="flex justify-center items-center">
-      <div className="w-10 h-10 border-[3px] border-gray-300 border-t-gray-800 rounded-full animate-spin"></div>
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-white">
+      <div className="flex gap-2">
+        <span className="w-3 h-3 bg-blue-600 rounded-full animate-bounce [animation-delay:-0.3s]"></span>
+        <span className="w-3 h-3 bg-blue-600 rounded-full animate-bounce [animation-delay:-0.15s]"></span>
+        <span className="w-3 h-3 bg-blue-600 rounded-full animate-bounce"></span>
+      </div>
     </div>
   );
 };
