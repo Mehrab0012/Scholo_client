@@ -44,8 +44,8 @@ const Login = () => {
                         /> */}
                             <input
                                 className="w-full h-12 pl-5 pr-11 rounded-xl border border-[#dbe0e6] bg-white 
-  text-[#111418] placeholder:text-secondary/50 text-sm transition-all
-  focus:outline-none focus:ring-2 focus:ring-blue-300"
+                                text-[#111418] placeholder:text-secondary/50 text-sm transition-all
+                                focus:outline-none focus:ring-2 focus:ring-blue-300"
                                 id="password"
                                 placeholder="••••••••"
                                 type={show ? "text" : "password"}

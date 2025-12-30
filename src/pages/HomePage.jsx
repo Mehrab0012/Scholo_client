@@ -1,12 +1,14 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import Hero from '../components/Hero/Hero';
 import TopScholarships from '../components/TopScholarships/TopScholarships';
 import SuccessStories from '../components/SuccessStories/SuccessStories';
 import FAQ from '../components/FAQ/FAQ';
 import { ToastContainer } from 'react-toastify';
+import { AuthContext } from '../context/AuthContext';
 
 const HomePage = () => {
-
+ const { user } = useContext(AuthContext);  
+   console.log(user)
     return (
         <div>
             <div>

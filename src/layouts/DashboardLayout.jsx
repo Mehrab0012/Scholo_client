@@ -1,15 +1,21 @@
 
-import React, { useState, useMemo, useEffect } from 'react';
+import React, { useState, useMemo, useEffect, useContext } from 'react';
 import { StatsCards } from '../components/Dashboard/StatsCards';
 import { FilterBar } from '../components/Dashboard/FilterBar';
 import { MdContentPasteSearch, MdOutlinePayments } from 'react-icons/md';
 import { Link } from 'react-router';
 import { IoMdAddCircleOutline } from 'react-icons/io';
+import api from '../api/axios';
+import { AuthContext } from '../context/AuthContext';
 
 
 
 
 const App = () => {
+
+    const [DBUser, setDBUser] = useState();
+    const { user } = useContext(AuthContext);
+
     const APPLICATIONS = [
         {
             id: '1',
@@ -72,6 +78,24 @@ const App = () => {
 
 
 
+    useEffect(() => {
+        if (!user?.email) return;
+
+        const fetchUser = async () => {
+            try {
+                const res = await api.get("/users", {
+                    params: { email: user.email }
+                });
+                setDBUser(res.data);
+            } catch (err) {
+                console.log(err);
+            }
+        };
+
+        fetchUser();
+    }, [user?.email]);
+
+    const role = DBUser?.role;
     return (
         <div className="min-h-screen bg-gray-50 flex flex-col mt-16 lg:mt-32">
 
@@ -88,17 +112,20 @@ const App = () => {
                     </div>
 
                     <div className='flex'>
-                        <Link to={'/add-scholarship'}>
-                        <button className="flex items-center justify-center cursor-pointer gap-2 bg-blue-600 hover:bg-blue-700 text-white font-bold py-2.5 px-6 rounded-lg transition-colors shadow-sm">
-                            <IoMdAddCircleOutline className='text-2xl' />Add Scholarship
-                        </button>
-                    </Link>
-                        <Link to={'/browse-scholarships'}>
-                        <button className="flex items-center justify-center cursor-pointer gap-2 bg-blue-600 hover:bg-blue-700 text-white font-bold py-2.5 px-6 rounded-lg transition-colors shadow-sm">
-                            <MdContentPasteSearch className='text-2xl' />Browse Scholerships
-                        </button>
-                    </Link>
-                    
+                        {DBUser?.role === 'student' &&
+                            <Link to={'/browse-scholarships'}>
+                                <button className="flex items-center justify-center cursor-pointer gap-2 bg-blue-600 hover:bg-blue-700 text-white font-bold py-2.5 px-6 rounded-lg transition-colors shadow-sm">
+                                    <MdContentPasteSearch className='text-2xl' />Browse Scholerships
+                                </button>
+                            </Link>}
+                        {
+                            DBUser?.role === 'organization' &&
+                            <Link to={'/add-scholarship'}>
+                                <button className="flex items-center justify-center cursor-pointer gap-2 bg-blue-600 hover:bg-blue-700 text-white font-bold py-2.5 px-6 rounded-lg transition-colors shadow-sm">
+                                    <IoMdAddCircleOutline className='text-2xl' />Add Scholarship
+                                </button>
+                            </Link>
+                        }
                     </div>
                 </div>
 
