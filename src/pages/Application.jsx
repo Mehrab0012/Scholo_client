@@ -61,7 +61,9 @@ console.log(appData)
                 applicationDate: new Date().toISOString().split('T')[0],
                 phoneNumber: "",
                 address: "",
-                personalStatement: ""
+                personalStatement: "",
+                awarded:false
+                
             });
         }
     }, [appData, user, id, reset]);

@@ -15,6 +15,8 @@ import AddScholarship from "../pages/AddScholarship.jsx";
 import Application from "../pages/Application.jsx";
 import PaymentSuccess from "../pages/paymentSuccess.jsx";
 import PaymentCancelled from "../pages/paymentCancelled.jsx";
+import Error404 from "../pages/Error404.jsx";
+import Review from "../pages/Review.jsx";
 
 const router = createBrowserRouter([
     {
@@ -60,19 +62,19 @@ const router = createBrowserRouter([
                 Component: Universities,
             },
             {
-                path: 'scholership-details/:id',
+                path: '/scholership-details/:id',
                 element: <PrivateRoute>
                     <ScholershipDetails></ScholershipDetails>
                 </PrivateRoute>
             },
             {
-                path: 'dashboard',
+                path: '/dashboard',
                 element: <PrivateRoute>
                     <DashboardLayout></DashboardLayout>
                 </PrivateRoute>
             },
             {
-                path: 'add-scholarship',
+                path: '/add-scholarship',
                 element: <PrivateRoute>
                     <AddScholarship></AddScholarship>
                 </PrivateRoute>
@@ -89,6 +91,12 @@ const router = createBrowserRouter([
 
             },
             {
+                path:'/review/:id',
+                element: <PrivateRoute>
+                    <Review></Review>
+                </PrivateRoute>
+            },
+            {
                 path: 'payment-success',
                 element: <PrivateRoute>
                     <PaymentSuccess></PaymentSuccess>
@@ -100,6 +108,11 @@ const router = createBrowserRouter([
                     <PaymentCancelled></PaymentCancelled>
                 </PrivateRoute>
             },
+            
+            {
+                path: '*',
+                Component: Error404,
+            }
 
         ]
     }

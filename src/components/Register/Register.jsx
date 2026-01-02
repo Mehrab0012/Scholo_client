@@ -148,6 +148,7 @@ const Register = () => {
                     <label className="text-sm font-semibold text-[#111418]">Profile Photo</label>
                     <input
                         type="file"
+                        required
                         accept="image/*"
                         onChange={(e) => setImageFile(e.target.files[0])}
                         className="block w-full cursor-pointer text-sm text-slate-500
