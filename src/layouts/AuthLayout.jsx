@@ -4,18 +4,31 @@ import { IoIosCheckmarkCircleOutline } from 'react-icons/io';
 import { Link, Outlet, useLocation, useNavigate } from 'react-router';
 import { AuthContext } from '../context/AuthContext';
 import { toast, ToastContainer } from 'react-toastify';
+import api from '../api/axios';
 
 const AuthLayout = () => {
-    const { signInWithGoogle } = useContext(AuthContext);
+    const { setUser, signInWithGoogle } = useContext(AuthContext);
 
     const location = useLocation();
     const navigate = useNavigate();
     const from = location.state?.from?.pathname || "/";
-
     const handleGoogleSignIn = () => {
         signInWithGoogle()
-            .then(result => {
+            .then(async (result) => {
+                try {
+                    const user = result.user;
+                    setUser(user);
+                    await api.post("/users", {
+                        name: user?.displayName || "",
+                        email: user?.email || "",
+                        photoURL: user?.photoURL || "" ,
+                        role: "student",
+                        
+                    });
 
+                } catch (error) {
+                    console.log(error)
+                }
                 toast.success("Login successful 🎉", {
                     autoClose: 3000,
                     pauseOnHover: true,
@@ -153,10 +166,7 @@ const AuthLayout = () => {
                             <img src="https://www.svgrepo.com/show/475656/google-color.svg" className="w-5 h-5" alt="Google" />
                             <span className="text-sm font-semibold text-[#111418]">Google</span>
                         </button>
-                        <button className="flex-1 py-3  flex items-center cursor-pointer justify-center gap-3 rounded-xl border border-[#dbe0e6] hover:bg-gray-50 transition-all bg-white">
-                            <img src="https://www.svgrepo.com/show/475647/facebook-color.svg" className="w-5 h-5" alt="Facebook" />
-                            <span className="text-sm font-semibold text-[#111418]">Facebook</span>
-                        </button>
+
                     </div>
                     <div className="flex justify-center gap-5 mt-5 text-blue-700">
                         <a className="text-xs text-secondary hover:text-primary transition-colors" href="#">Privacy Policy</a>

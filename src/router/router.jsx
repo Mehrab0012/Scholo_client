@@ -12,6 +12,9 @@ import ScholershipDetails from "../pages/ScholershipDetails.jsx";
 import PrivateRoute from "../provider/PrivateRoute.jsx";
 import DashboardLayout from "../layouts/DashboardLayout.jsx";
 import AddScholarship from "../pages/AddScholarship.jsx";
+import Application from "../pages/Application.jsx";
+import PaymentSuccess from "../pages/paymentSuccess.jsx";
+import PaymentCancelled from "../pages/paymentCancelled.jsx";
 
 const router = createBrowserRouter([
     {
@@ -73,7 +76,30 @@ const router = createBrowserRouter([
                 element: <PrivateRoute>
                     <AddScholarship></AddScholarship>
                 </PrivateRoute>
-            }
+            },
+            {
+
+            },
+
+            {
+                path: '/application/:id',
+                element: <PrivateRoute>
+                    <Application></Application>
+                </PrivateRoute>,
+
+            },
+            {
+                path: 'payment-success',
+                element: <PrivateRoute>
+                    <PaymentSuccess></PaymentSuccess>
+                </PrivateRoute>
+            },
+            {
+                path: 'payment-cancelled',
+                element: <PrivateRoute>
+                    <PaymentCancelled></PaymentCancelled>
+                </PrivateRoute>
+            },
 
         ]
     }

@@ -61,7 +61,7 @@ const BrowseScholarships = () => {
           <IoCheckmarkDoneOutline className='font-2xl text-green-500' />
 
           <p className="text-sm font-medium text-[#111418]">
-            Showing <span className="font-bold">124</span> scholarships //dynamic part
+            Showing: <span className="font-bold"> {scholarshipData.length} Scholarships</span> 
           </p>
         </div>
 

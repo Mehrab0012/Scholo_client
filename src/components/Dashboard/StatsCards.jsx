@@ -1,10 +1,14 @@
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import { FaRegFolderOpen } from 'react-icons/fa';
 import { IoHourglassOutline } from 'react-icons/io5';
 import { MdOutlineVerified } from 'react-icons/md';
 
 export const StatsCards = ({ stats }) => {
+
+  useEffect(()=>{
+    
+  },[])
   return (
     <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6">
       <StatCard 

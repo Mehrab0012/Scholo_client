@@ -19,7 +19,7 @@ const Register = () => {
     });
 
     const selectedRole = watch("role");
-    const options = ["student", "organization"];
+    const options = ["student"];
     const { createUser, setLoading } = useContext(AuthContext);
 
     const location = useLocation();
@@ -75,8 +75,9 @@ const Register = () => {
             try{
                 await api.post("/users",{
                     role: data.role,
-                    fullName: data.fullName,
-                    email: data.email
+                    name: data.fullName,
+                    email: data.email,
+                    photoURL: photoURL
                 });
         
             }catch(error){
@@ -140,18 +141,7 @@ const Register = () => {
                 </div>
 
                 {/* Organization Name (Conditional) */}
-                {selectedRole === 'organization' && (
-                    <div className="space-y-1">
-                        <label className="text-sm font-semibold text-[#111418]" htmlFor="orgName">Organization Name</label>
-                        <input
-                            className="w-full py-3 px-5 rounded-xl border border-[#dbe0e6] bg-white text-[#111418] focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all text-sm"
-                            id="orgName"
-                            placeholder="University/Company Name"
-                            type="text"
-                            {...register("orgName")}
-                        />
-                    </div>
-                )}
+
 
                 {/* Photo Upload */}
                 <div className="space-y-1">

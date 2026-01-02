@@ -15,7 +15,7 @@ const TabType = Object.freeze({
 });
 
 const ScholershipDetails = () => {
-  const [scholarShipData, setScholarshipData] = useState(null); 
+  const [scholarShipData, setScholarshipData] = useState(null);
   const { id } = useParams();
   const [loading, setLoading] = useState(true);
 
@@ -127,10 +127,11 @@ const ScholershipDetails = () => {
 
         {/* Right Sidebar Area */}
         <div className="lg:col-span-4 sticky top-24">
-          <ApplyScholership amount={scholarShipData.amount}
-           fee={scholarShipData.fee} 
-           deadline={scholarShipData.deadline} 
-           frequency={scholarShipData.frequency}  />
+          <ApplyScholership id={id}
+            amount={scholarShipData.amount}
+            fee={scholarShipData.fee}
+            deadline={scholarShipData.deadline}
+            frequency={scholarShipData.frequency} />
         </div>
       </div>
     </div>

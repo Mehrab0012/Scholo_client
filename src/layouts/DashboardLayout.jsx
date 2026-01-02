@@ -7,6 +7,8 @@ import { Link } from 'react-router';
 import { IoMdAddCircleOutline } from 'react-icons/io';
 import api from '../api/axios';
 import { AuthContext } from '../context/AuthContext';
+import useRole from '../hooks/useRole';
+import Loader from '../components/Loader/Loader';
 
 
 
@@ -15,59 +17,9 @@ const App = () => {
 
     const [DBUser, setDBUser] = useState();
     const { user } = useContext(AuthContext);
+    const {role, isReloading} = useRole();
+ 
 
-    const APPLICATIONS = [
-        {
-            id: '1',
-            appId: '#APP-2023-892',
-            title: 'Future Tech Leaders Grant',
-            organization: 'Tech World Foundation',
-            dateSubmitted: 'Oct 24, 2023',
-            status: 'Processing',
-            icon: 'biotech',
-            iconColor: 'text-blue-600 bg-blue-50',
-        },
-        {
-            id: '2',
-            appId: '#APP-2023-755',
-            title: 'Women in STEM Scholarship',
-            organization: 'Global Science Initiative',
-            dateSubmitted: 'Sep 15, 2023',
-            status: 'Pending',
-            icon: 'female',
-            iconColor: 'text-purple-600 bg-purple-50',
-        },
-        {
-            id: '3',
-            appId: '#APP-2023-441',
-            title: 'Community Service Award',
-            organization: 'Local Heroes Org',
-            dateSubmitted: 'Aug 10, 2023',
-            status: 'Completed',
-            icon: 'volunteer_activism',
-            iconColor: 'text-green-600 bg-green-50',
-        },
-        {
-            id: '4',
-            appId: '#APP-2023-112',
-            title: 'Academic Excellence Fund',
-            organization: 'State University',
-            dateSubmitted: 'Jul 05, 2023',
-            status: 'Rejected',
-            icon: 'school',
-            iconColor: 'text-orange-600 bg-orange-50',
-        },
-        {
-            id: '5',
-            appId: '#APP-2023-091',
-            title: 'NextGen Coders',
-            organization: 'Silicon Valley Hub',
-            dateSubmitted: 'Jun 12, 2023',
-            status: 'Completed',
-            icon: 'code',
-            iconColor: 'text-teal-600 bg-teal-50',
-        }
-    ];
     const [activeFilter, setActiveFilter] = useState('All Status');
 
     const stats = {
@@ -76,7 +28,7 @@ const App = () => {
         awarded: 2
     };
 
-
+console.log(DBUser)
 
     useEffect(() => {
         if (!user?.email) return;
@@ -95,7 +47,8 @@ const App = () => {
         fetchUser();
     }, [user?.email]);
 
-    const role = DBUser?.role;
+    if(isReloading) return <Loader></Loader>
+    
     return (
         <div className="min-h-screen bg-gray-50 flex flex-col mt-16 lg:mt-32">
 
@@ -133,9 +86,7 @@ const App = () => {
 
                 <div className="mt-8">
                     <FilterBar
-                        activeFilter={activeFilter}
-                        onFilterChange={setActiveFilter}
-
+                        
                     />
                 </div>
 
