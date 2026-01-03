@@ -18,45 +18,52 @@ const AuthLayout = () => {
                 try {
                     const user = result.user;
                     setUser(user);
+
+
                     await api.post("/users", {
                         name: user?.displayName || "",
                         email: user?.email || "",
-                        photoURL: user?.photoURL || "" ,
+                        photoURL: user?.photoURL || "",
                         role: "student",
-                        
                     });
 
+
+                    const jwtRes = await api.post("/jwt", {
+                        email: user?.email,
+                    });
+
+                    localStorage.setItem("access-token", jwtRes.data.token);
+
+                    toast.success("Login successful 🎉", {
+                        autoClose: 3000,
+                        pauseOnHover: true,
+                        draggable: true,
+                    });
+
+                    navigate(from, { replace: true });
+
                 } catch (error) {
-                    console.log(error)
+                    console.log(error);
+                    toast.error("Login failed");
                 }
-                toast.success("Login successful 🎉", {
-                    autoClose: 3000,
-                    pauseOnHover: true,
-                    draggable: true,
-                });
-                navigate(from, { replace: true });
             })
             .catch(error => {
                 if (error.code === "auth/popup-closed-by-user") {
                     toast.error("Sign in popup closed");
-                }
-                else if (error.code === "auth/cancelled-popup-request") {
+                } else if (error.code === "auth/cancelled-popup-request") {
                     toast.error("Popup request cancelled");
-                }
-                else if (error.code === "auth/account-exists-with-different-credential") {
+                } else if (error.code === "auth/account-exists-with-different-credential") {
                     toast.error("Account already exists with different sign-in method");
-                }
-                else if (error.code === "auth/network-request-failed") {
+                } else if (error.code === "auth/network-request-failed") {
                     toast.error("Network error. Please check your internet");
-                }
-                else if (error.code === "auth/too-many-requests") {
+                } else if (error.code === "auth/too-many-requests") {
                     toast.error("Too many attempts. Try again later");
-                }
-                else {
+                } else {
                     toast.error("Something went wrong. Please try again");
                 }
-            })
-    }
+            });
+    };
+
 
     const [active, setActive] = useState("logIn");
 

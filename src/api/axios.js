@@ -2,7 +2,7 @@ import axios from "axios";
 
 // 1️⃣ Create Axios instance
 const api = axios.create({
-    baseURL: "http://localhost:3000",
+    baseURL: "https://scholarship-stream-theta.vercel.app",
     headers: {
         "Content-Type": "application/json",
     },
