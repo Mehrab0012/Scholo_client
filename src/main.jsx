@@ -15,10 +15,13 @@ createRoot(document.getElementById('root')).render(
     <AuthProvider>
       <Elements stripe={stripePromise}>
         <QueryClientProvider client={queryClient}>
-          <RouterProvider router={router}></RouterProvider>
+         
+            <RouterProvider router={router}></RouterProvider>
+        
         </QueryClientProvider>
       </Elements>
     </AuthProvider>
+  
 
   </StrictMode>,
 )

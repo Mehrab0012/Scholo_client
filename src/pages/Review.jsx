@@ -54,7 +54,6 @@ const Review = () => {
     };
 
     if (loading) return <Loader />;
-    console.log(app)
 
     return (
         <div className="bg-[#f8fafc] min-h-screen mt-16 lg:mt-32 mb-16 lg:mb-32 px-4 md:px-8">

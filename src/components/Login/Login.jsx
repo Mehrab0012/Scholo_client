@@ -9,9 +9,9 @@ import api from '../../api/axios';
 const Login = () => {
     const [show, setShow] = useState(false);
     const { signIn, setLoading } = useContext(AuthContext);
-    
+
     const { register, handleSubmit, formState: { errors } } = useForm();
-    
+
     const navigate = useNavigate();
     const location = useLocation();
     const from = location.state?.from?.pathname || "/";
@@ -24,33 +24,32 @@ const Login = () => {
             const result = await signIn(data.email, data.password);
             const user = result.user;
 
-            // 2. Patch Backend with Last Login Time
-            try {
-                await api.patch("/users/login-update", {
-                    email: user.email
-                });
-            } catch (dbError) {
-                console.error("Database update failed:", dbError);
-                // We don't block the user if only the timestamp fails
+            // 2. Get JWT Token
+            const { data: jwtResponse } = await api.post('/jwt', { email: user.email });
+
+            if (jwtResponse.token) {
+                // 3. Store token in localStorage
+                localStorage.setItem('access-token', jwtResponse.token);
+
+                // 4. Make protected request AFTER token is stored
+                await api.patch("/users/login-update", { email: user.email });
             }
 
-            toast.success("Welcome back! 👋", { autoClose: 2000 });
-
-            // 3. Finalize
+            toast.success("Welcome back!");
             setLoading(false);
             navigate(from, { replace: true });
 
         } catch (error) {
-            console.error("Login error:", error);
             setLoading(false);
-            toast.error(error.message || "Invalid email or password");
+            console.error(error);
+            toast.error(error.response?.data?.message || error.message);
         }
     };
 
     return (
         <div className="space-y-6 animate-in fade-in slide-in-from-right-4 duration-300 mt-10">
             <ToastContainer />
-            
+
             <form className="space-y-5" onSubmit={handleSubmit(onSubmit)}>
                 {/* Email Input */}
                 <div className="space-y-1">
@@ -80,8 +79,8 @@ const Login = () => {
                             placeholder="••••••••"
                             type={show ? "text" : "password"}
                         />
-                        <button 
-                            className="absolute inset-y-0 right-0 pr-3 flex items-center text-secondary/60 hover:text-secondary" 
+                        <button
+                            className="absolute inset-y-0 right-0 pr-3 flex items-center text-secondary/60 hover:text-secondary"
                             type="button"
                             onClick={() => setShow(!show)}
                         >
@@ -92,7 +91,7 @@ const Login = () => {
                 </div>
 
                 {/* Login Button */}
-                <button 
+                <button
                     className="w-full py-4 flex items-center justify-center rounded-xl text-lg text-blue-800 mt-10 
                     font-bold tracking-wide bg-blue-100 hover:bg-blue-200 cursor-pointer shadow-lg shadow-blue-500/20 transition-all"
                     type="submit"

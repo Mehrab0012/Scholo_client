@@ -44,6 +44,7 @@ const AuthProvider = ({ children }) => {
             .then(() => {
                 toast.success("Sign Out Successfully");
                 setUser(null);
+                localStorage.removeItem('access-token'); // Clear token
 
             })
             .catch((error) => {

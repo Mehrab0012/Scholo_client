@@ -29,7 +29,7 @@ const Register = () => {
 
     // UPLOAD IMAGE TO CLOUDINARY
     const CLOUDINARY_URL = import.meta.env.VITE_CLOUDINARY;
-    const UPLOAD_PRESET = import.meta.env.VITE_CLOUDINARY_PRESET; 
+    const UPLOAD_PRESET = import.meta.env.VITE_CLOUDINARY_PRESET;
 
     const uploadImageToCloudinary = async (imageFile) => {
         const formData = new FormData();
@@ -51,53 +51,49 @@ const Register = () => {
         return data.secure_url;
     };
 
-    const onSubmit = async (data) => {
-        try {
-            setLoading(true);
-            setUploading(true);
+const onSubmit = async (data) => {
+    try {
+        setLoading(true);
+        setUploading(true);
 
-            // 1. Upload image if exists
-            let photoURL = "";
-            if (imageFile) {
-                photoURL = await uploadImageToCloudinary(imageFile);
-            }
-
-            // 2. Create User in Firebase
-            const result = await createUser(data.email, data.password);
-            const user = result.user;
-
-            // 3. Update Firebase Profile with Name and Photo
-            await updateProfile(user, {
-                displayName: data.fullName,
-                photoURL: photoURL
-            });
-
-            try{
-                await api.post("/users",{
-                    role: data.role,
-                    name: data.fullName,
-                    email: data.email,
-                    photoURL: photoURL
-                });
-        
-            }catch(error){
-                console.log(error)
-            }
-
-            toast.success("Registration successful 🎉", { autoClose: 3000 });
-
-            // 4. Finalize
-            setLoading(false);
-            setUploading(false);
-            navigate(from, { replace: true });
-
-        } catch (error) {
-            console.error("Registration error:", error);
-            toast.error(error.message || "An error occurred");
-            setLoading(false);
-            setUploading(false);
+        // 1. Upload image if exists
+        let photoURL = "";
+        if (imageFile) {
+            photoURL = await uploadImageToCloudinary(imageFile);
         }
-    };
+
+        // 2. Create User in Firebase
+        const result = await createUser(data.email, data.password);
+        await updateProfile(result.user, {
+            displayName: data.fullName,
+            photoURL: photoURL
+        });
+
+        // 3. Get JWT Token first 🔑
+        const { data: jwtResponse } = await api.post('/jwt', { email: data.email });
+        if (!jwtResponse.token) throw new Error("Failed to get access token");
+        localStorage.setItem('access-token', jwtResponse.token);
+
+        // 4. Save to MongoDB (protected route now works because token is set)
+        await api.post("/users", {
+            role: data.role,
+            name: data.fullName,
+            email: data.email,
+            photoURL: photoURL
+        });
+
+        toast.success("Registration successful 🎉");
+        setLoading(false);
+        setUploading(false);
+        navigate(from, { replace: true });
+
+    } catch (error) {
+        console.error("Registration error:", error);
+        toast.error(error.response?.data?.message || error.message || "An error occurred");
+        setLoading(false);
+        setUploading(false);
+    }
+};
 
     return (
         <div className="space-y-6 animate-in fade-in slide-in-from-left-4 duration-300">
