@@ -2,10 +2,13 @@ import { signOut } from "firebase/auth";
 import { useEffect, useRef, useState } from "react";
 import { auth } from "../../firebase/firebase.config";
 import { Link } from "react-router";
+import useRole from "../../hooks/useRole";
+import Loader from "../Loader/Loader";
 
 const ProfileMenu = ({ user }) => {
   const [open, setOpen] = useState(false);
   const menuRef = useRef(null);
+  const {role ,isReloading} = useRole([]);
 
   useEffect(() => {
     const handleClickOutside = (e) => {
@@ -20,7 +23,8 @@ const ProfileMenu = ({ user }) => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, []);
-
+    if (isReloading ) return <Loader />;
+  
   return (
     <div onClick={() => setOpen(!open)} className="cursor-pointer relative bg-blue-200 p-2 rounded-full shadow-2xl shadow-teal-700" ref={menuRef}>
       {/* Avatar */}
@@ -56,6 +60,7 @@ const ProfileMenu = ({ user }) => {
               </button>
             </Link>
           )}
+         
 
           <button
             onClick={() => signOut(auth)}

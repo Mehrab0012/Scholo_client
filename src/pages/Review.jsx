@@ -27,8 +27,16 @@ const Review = () => {
                 setFeedback(res.data.feedback || '');
                 setLoading(false);
             })
-            .catch(() => navigate('/admin-dashboard'));
+            .catch(() => navigate('/dashboard'));
     }, [id]);
+    // useEffect(() => {
+    //     api.get(`/applications/${id}`)
+    //         .then(res => {
+    //             console.log(res.data)
+    //         })
+    //         .catch(() => navigate('/dashboard'));
+    // }, [id]);
+
 
     const handleSaveDecision = async () => {
         try {
@@ -46,6 +54,7 @@ const Review = () => {
     };
 
     if (loading) return <Loader />;
+    console.log(app)
 
     return (
         <div className="bg-[#f8fafc] min-h-screen mt-16 lg:mt-32 mb-16 lg:mb-32 px-4 md:px-8">

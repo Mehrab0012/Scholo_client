@@ -1,7 +1,12 @@
 import React from 'react';
 import { useForm, useFieldArray } from 'react-hook-form';
+import useRole from '../hooks/useRole';
+import Loader from '../components/Loader/Loader';
+import Unauthorized from '../components/Unauthorized/Unauthorized';
 
 const ScholarshipForm = () => {
+
+    const {role, isReloading} = useRole([]);
     const today = new Date().toISOString().split('T')[0];
 
     const { register, control, handleSubmit, setValue } = useForm({
@@ -44,6 +49,8 @@ const ScholarshipForm = () => {
     const labelBase = "block text-sm font-semibold text-slate-800 mb-2 ml-1";
     const sectionCard = "bg-white p-8 rounded-2xl border border-slate-100 shadow-sm mb-6";
 
+    if(isReloading) return <Loader></Loader>
+    if(role !== 'admi') return <Unauthorized></Unauthorized>
     return (
         <div className="min-h-screen bg-slate-50 pt-28 pb-20 px-6">
             <div className="max-w-4xl mx-auto">

@@ -7,7 +7,9 @@ import api from '../api/axios';
 import { AuthContext } from '../context/AuthContext';
 import useRole from '../hooks/useRole';
 import Loader from '../components/Loader/Loader';
+import ModeratorDashboard from '../components/Dashboard/ModeratorDashboard';
 import AdminDashboard from '../components/Dashboard/AdminDashboard';
+
 
 const DashboardLayout = () => {
     const { user } = useContext(AuthContext);
@@ -68,8 +70,7 @@ const DashboardLayout = () => {
         })
             .then(res => setScholarships(res.data))
             .catch(err => {
-                // If this still fails with 400, ensure the backend route 
-                // '/scholarships/bulk' is placed ABOVE '/scholarships/:id'
+               
                 console.error("Bulk fetch error:", err);
             });
 
@@ -91,6 +92,9 @@ const DashboardLayout = () => {
 
     if(role === "admin"){
         return <AdminDashboard />
+    }
+    if(role === "moderator"){
+        return <ModeratorDashboard/>
     }
 
     return (
@@ -117,14 +121,7 @@ const DashboardLayout = () => {
                                 </button>
                             </Link>
                         )}
-                        {(DBUser?.role === 'organization' || role === 'organization' || role === 'admin') && (
-                            <Link to='/add-scholarship'>
-                                <button className="flex items-center justify-center cursor-pointer gap-2 bg-blue-600 hover:bg-blue-700 text-white font-bold py-2.5 px-6 rounded-lg transition-colors shadow-sm">
-                                    <IoMdAddCircleOutline className='text-2xl' />
-                                    Add Scholarship
-                                </button>
-                            </Link>
-                        )}
+                       
                     </div>
                 </div>
 

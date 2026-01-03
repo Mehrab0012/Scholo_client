@@ -13,8 +13,9 @@ const Application = () => {
     const [application, setApplication] = useState(null); // Changed to null for better logic check
     const navigate = useNavigate();
 
+    
     const { register, handleSubmit, reset, formState: { errors } } = useForm();
-console.log(appData)
+
     // Fetch scholarship data and check if user already applied to THIS scholarship
     useEffect(() => {
         const getData = async () => {
@@ -46,6 +47,8 @@ console.log(appData)
     useEffect(() => {
         if (appData && user) {
             reset({
+                scholarshipTitle:appData.title,
+                provider: appData.provider,
                 providerImage: appData.providerImage,
                 scholarshipId: id,
                 userId: user.uid,
