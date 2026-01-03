@@ -17,6 +17,7 @@ import PaymentSuccess from "../pages/paymentSuccess.jsx";
 import PaymentCancelled from "../pages/paymentCancelled.jsx";
 import Error404 from "../pages/Error404.jsx";
 import Review from "../pages/Review.jsx";
+import Analytics from "../components/Analytics/Analytics.jsx";
 
 const router = createBrowserRouter([
     {
@@ -80,7 +81,10 @@ const router = createBrowserRouter([
                 </PrivateRoute>
             },
             {
-
+                path: '/analytics',
+                element: <PrivateRoute>
+                    <Analytics></Analytics>
+                </PrivateRoute>
             },
 
             {

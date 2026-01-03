@@ -6,7 +6,7 @@ export const Pagination = ({setLimit}) => {
         <div className="flex items-center justify-center md:justify-between pt-8 border-t border-gray-100">
 
             <button onClick={()=>setLimit(prev=>prev+6)}
-                class="px-10 text-md cursor-pointer py-3 rounded-xl bg-blue-500 text-white font-medium tracking-wide
+                className="px-10 text-md cursor-pointer py-3 rounded-xl bg-blue-500 text-white font-medium tracking-wide
          transition-all duration-600 ease-out
          hover:bg-blue-700 hover:shadow-lg
          m-auto

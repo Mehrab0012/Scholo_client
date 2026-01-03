@@ -1,19 +1,20 @@
 import React, { useEffect, useState, useMemo } from 'react';
-import { 
+import {
     AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer,
-    PieChart, Pie, Cell, Legend 
+    PieChart, Pie, Cell, Legend
 } from 'recharts';
-import { 
-    FiDownload, FiCalendar, FiUsers, FiFileText, FiAward, FiClock, FiEye 
+import {
+    FiDownload, FiCalendar, FiUsers, FiFileText, FiAward, FiClock, FiEye
 } from 'react-icons/fi';
 import { Link } from 'react-router';
-import api from '../api/axios';
-import Loader from '../components/Loader/Loader';
+import Loader from '../Loader/Loader';
+import api from '../../api/axios';
 
 const Analytics = () => {
     const [applications, setApplications] = useState([]);
     const [scholarshipsCount, setScholarshipsCount] = useState(0);
     const [loading, setLoading] = useState(true);
+    const [totalUsers, setTotalUsers] = useState(0);
 
     useEffect(() => {
         const fetchAnalyticsData = async () => {
@@ -25,6 +26,13 @@ const Analytics = () => {
                 // Fetch scholarships to get the count
                 const { data: schol } = await api.get('/scholarships?limit=1000');
                 setScholarshipsCount(schol.length);
+
+                //fetch all user 
+                api.get("/users/count")
+                    .then(res => {
+                        setTotalUsers(res.data.totalUsers);
+                    })
+                    .catch(err => console.log(err));
             } catch (err) {
                 console.error("Analytics fetch error:", err);
             } finally {
@@ -39,7 +47,7 @@ const Analytics = () => {
         const pending = applications.filter(a => a.applicationStatus === 'pending').length;
         const accepted = applications.filter(a => a.applicationStatus === 'approved').length;
         const rejected = applications.filter(a => a.applicationStatus === 'rejected').length;
-        
+
         return [
             { name: 'Pending', value: pending, color: '#137fec' },
             { name: 'Accepted', value: accepted, color: '#00ba9d' },
@@ -58,36 +66,29 @@ const Analytics = () => {
     if (loading) return <Loader />;
 
     return (
-        <div className="bg-[#f8fafc] min-h-screen p-6 lg:p-10 mt-16">
+        <div className="bg-[#f8fafc] lg:mt-32 p-6 lg:p-10 mt-16">
             <div className="max-w-7xl mx-auto">
-                
+
                 {/* Header */}
                 <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-10">
                     <div>
                         <h1 className="text-3xl font-black text-slate-900 tracking-tight">Platform Overview</h1>
                         <p className="text-slate-500 mt-1">Welcome back. Here's what's happening on ScholarStream today.</p>
                     </div>
-                    <div className="flex gap-3">
-                        <div className="flex items-center gap-2 bg-white border border-slate-200 px-4 py-2 rounded-xl text-sm font-bold text-slate-600">
-                            <FiCalendar /> Last 30 Days
-                        </div>
-                        <button className="flex items-center gap-2 bg-[#137fec] hover:bg-blue-700 text-white px-5 py-2 rounded-xl text-sm font-bold shadow-lg shadow-blue-200 transition-all">
-                            <FiDownload /> Download Report
-                        </button>
-                    </div>
+                 
                 </div>
 
                 {/* Stats Grid */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-10">
                     <StatCard title="Active Scholarships" value={scholarshipsCount} change="+12%" icon={<FiAward />} color="blue" />
                     <StatCard title="Total Applications" value={applications.length} change="+5%" icon={<FiFileText />} color="purple" />
-                    <StatCard title="New Users (This Week)" value="342" change="+8%" icon={<FiUsers />} color="orange" />
+                    <StatCard title="New Users (This Week)" value={totalUsers} change="+8%" icon={<FiUsers />} color="orange" />
                     <StatCard title="Pending Approvals" value={applications.filter(a => a.applicationStatus === 'pending').length} change="Same" icon={<FiClock />} color="red" />
                 </div>
 
                 {/* Charts Row */}
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-10">
-                    
+
                     {/* Application Activity Line Chart */}
                     <div className="lg:col-span-2 bg-white p-8 rounded-3xl border border-slate-100 shadow-sm">
                         <div className="flex items-center justify-between mb-8">
@@ -104,12 +105,12 @@ const Analytics = () => {
                                 <AreaChart data={activityData}>
                                     <defs>
                                         <linearGradient id="colorApps" x1="0" y1="0" x2="0" y2="1">
-                                            <stop offset="5%" stopColor="#137fec" stopOpacity={0.1}/>
-                                            <stop offset="95%" stopColor="#137fec" stopOpacity={0}/>
+                                            <stop offset="5%" stopColor="#137fec" stopOpacity={0.1} />
+                                            <stop offset="95%" stopColor="#137fec" stopOpacity={0} />
                                         </linearGradient>
                                     </defs>
                                     <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#f1f5f9" />
-                                    <XAxis dataKey="name" axisLine={false} tickLine={false} tick={{fill: '#94a3b8', fontSize: 12}} dy={10} />
+                                    <XAxis dataKey="name" axisLine={false} tickLine={false} tick={{ fill: '#94a3b8', fontSize: 12 }} dy={10} />
                                     <YAxis hide />
                                     <Tooltip />
                                     <Area type="monotone" dataKey="apps" stroke="#137fec" strokeWidth={3} fillOpacity={1} fill="url(#colorApps)" />
@@ -141,7 +142,7 @@ const Analytics = () => {
                             {statusData.map(item => (
                                 <div key={item.name} className="flex items-center justify-between text-sm">
                                     <div className="flex items-center gap-2">
-                                        <div className="w-3 h-3 rounded-full" style={{backgroundColor: item.color}}></div>
+                                        <div className="w-3 h-3 rounded-full" style={{ backgroundColor: item.color }}></div>
                                         <span className="font-bold text-slate-600">{item.name}</span>
                                     </div>
                                     <span className="font-black text-slate-900">
@@ -184,16 +185,15 @@ const Analytics = () => {
                                         <td className="px-8 py-5 text-sm font-bold text-slate-600">{app.universityName}</td>
                                         <td className="px-8 py-5 text-sm font-medium text-slate-400">{app.applicationDate}</td>
                                         <td className="px-8 py-5">
-                                            <span className={`px-3 py-1 rounded-lg text-[10px] font-black uppercase tracking-wider ${
-                                                app.applicationStatus === 'pending' ? 'bg-orange-50 text-orange-600' : 
-                                                app.applicationStatus === 'approved' ? 'bg-emerald-50 text-emerald-600' : 
-                                                'bg-red-50 text-red-600'
-                                            }`}>
+                                            <span className={`px-3 py-1 rounded-lg text-[10px] font-black uppercase tracking-wider ${app.applicationStatus === 'pending' ? 'bg-orange-50 text-orange-600' :
+                                                app.applicationStatus === 'approved' ? 'bg-emerald-50 text-emerald-600' :
+                                                    'bg-red-50 text-red-600'
+                                                }`}>
                                                 {app.applicationStatus === 'pending' ? 'Pending Review' : app.applicationStatus}
                                             </span>
                                         </td>
                                         <td className="px-8 py-5 text-center">
-                                            <Link to={`/admin/review/${app._id}`} className="text-slate-400 hover:text-[#137fec]">
+                                            <Link to={`/review/${app._id}`} className="text-slate-400 hover:text-[#137fec]">
                                                 <FiEye className="inline text-lg" />
                                             </Link>
                                         </td>

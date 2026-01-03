@@ -28,8 +28,8 @@ const Register = () => {
 
 
     // UPLOAD IMAGE TO CLOUDINARY
-    const CLOUDINARY_URL = import.meta.env.VITE_CLOUDINARY; // e.g., https://api.cloudinary.com/v1_1/YOUR_CLOUD_NAME/image/upload
-    const UPLOAD_PRESET = import.meta.env.VITE_CLOUDINARY_PRESET; // e.g., profile_upload
+    const CLOUDINARY_URL = import.meta.env.VITE_CLOUDINARY;
+    const UPLOAD_PRESET = import.meta.env.VITE_CLOUDINARY_PRESET; 
 
     const uploadImageToCloudinary = async (imageFile) => {
         const formData = new FormData();

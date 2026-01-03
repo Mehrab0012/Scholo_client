@@ -50,7 +50,7 @@ const ScholarshipForm = () => {
     const sectionCard = "bg-white p-8 rounded-2xl border border-slate-100 shadow-sm mb-6";
 
     if(isReloading) return <Loader></Loader>
-    if(role !== 'admi') return <Unauthorized></Unauthorized>
+    if(role !== 'admin') return <Unauthorized></Unauthorized>
     return (
         <div className="min-h-screen bg-slate-50 pt-28 pb-20 px-6">
             <div className="max-w-4xl mx-auto">

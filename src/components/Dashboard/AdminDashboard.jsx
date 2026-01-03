@@ -99,9 +99,14 @@ const UserManagement = () => {
                         <h1 className="text-3xl font-black text-slate-900 tracking-tight">User Management</h1>
                         <p className="text-slate-500 mt-1">Control access and platform roles.</p>
                     </div>
-                    <div>
+                    <div className='flex gap-3'>
+                        <Link to={'/analytics'}>
+                            <button className='bg-blue-600 cursor-pointer px-14 py-3 rounded-2xl font-bold text-white text-sm lg:text-lg'>
+                                Analytics
+                            </button>
+                        </Link>
                         <Link to={'/add-scholarship'}>
-                            <button className='bg-blue-600 cursor-pointer px-14 py-3 rounded-2xl font-bold text-white text-lg'>
+                            <button className='bg-blue-600 cursor-pointer px-14 py-3 rounded-2xl font-bold text-white text-sm lg:text-lg'>
                                 Add Scholarship
                             </button>
                         </Link>
